@@ -3,5 +3,5 @@
 </cu-custom>
 
 <view class="cu-bar bg-white">
-<view class="margin">已连接到{{name}}</view>
+<view class="margin">当前设备{{name}}</view>
 </view>

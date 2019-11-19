@@ -4,7 +4,7 @@ Page({
     isopen: false, //蓝牙适配器是否已打开
     devices: [],
     connected: false,
-    connectName:'未连接',
+    connectName: '未连接',
   },
 
   startScan: function(e) {
@@ -81,46 +81,54 @@ Page({
   },
 
   startConnect: function(e) {
-    var that = this;
     console.log("点击连接", e)
-    wx.showModal({
-      title: '提示',
-      content: '是否连接到' + e.currentTarget.dataset.name + '？',
-      success: res => {
-        if (res.confirm) {
-          wx.createBLEConnection({
-            timeout:2000,
-            deviceId: e.currentTarget.dataset.id,
-            success: res => {
-              console.log("成功连接", res)
-              that.setData({
-                connected:true,
-                connectName: e.currentTarget.dataset.name,
-              })
-              app.globalData.deviceId = e.currentTarget.dataset.id;
-              wx.navigateTo({
-                url: '../ctrl/ctrl',
-              })
-              wx.stopBluetoothDevicesDiscovery({
-                success: e => {
-                  console.log(e)
-                },
-                fail: console.error,
+    var that = this;
+    if ((that.data.connected == true) && (e.currentTarget.dataset.name == that.data.connectName)) {
+      wx.navigateTo({
+        url: '../ctrl/ctrl',
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '是否连接到' + e.currentTarget.dataset.name + '？',
+        success: res => {
+          if (res.confirm) {
+            wx.createBLEConnection({
+              deviceId: e.currentTarget.dataset.id,
+              success: res => {
+                console.log("成功连接", res)
+                that.setData({
+                  connected: true,
+                  connectName: e.currentTarget.dataset.name,
+                })
+                app.globalData.deviceId = e.currentTarget.dataset.id;
+                app.globalData.deviceName = e.currentTarget.dataset.name;
+                wx.navigateTo({
+                  url: '../ctrl/ctrl',
+                })
+                wx.stopBluetoothDevicesDiscovery({
+                  success: e => {
+                    console.log(e)
+                  },
+                  fail: console.error,
 
-              })
-            },
-            fail: res => {
-              wx.showToast({
-                title: '连接失败',
-                icon:'none',
-              })
-            }
-          })
-        } else if (res.cancel) {
-          console.log("取消连接")
+                })
+              },
+              fail: res => {
+                wx.showToast({
+                  title: '连接失败',
+                  icon: 'none',
+                })
+              }
+            })
+          } else if (res.cancel) {
+            console.log("取消连接")
+          }
         }
-      }
-    })
+      })
+    }
+
+
   },
   stopConnect: function() {
     var that = this;
@@ -128,18 +136,22 @@ Page({
       wx.closeBLEConnection({
         deviceId: app.globalData.deviceId,
         success: e => {
+          wx.showToast({
+            title: '已断开连接！',
+            icon: 'none'
+          })
           that.setData({
-            connected:false,
-            connectName:'未连接'
+            connected: false,
+            connectName: '未连接'
           })
           console.log(e)
         },
         fail: console.error
       })
-    }else{
+    } else {
       wx.showToast({
         title: '没有已连接设备！',
-        icon:'none',
+        icon: 'none',
       })
     }
   },
@@ -149,6 +161,23 @@ Page({
     var that = this;
     that.openBluetoothAdapter();
   },
+
+  onUnload: function(e) {
+    wx.closeBLEConnection({
+      deviceId: app.globalData.deviceId,
+      success: e => {
+        this.setData({
+          connected: false,
+          connectName: '未连接'
+        })
+        console.log("页面卸载，断开连接！")
+      }
+    })
+  },
+  onHide: function() {
+
+  }
+
 
 
 })
