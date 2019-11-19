@@ -1,0 +1,7 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{false}}">
+  <view slot="content">智能窗帘控制</view>
+</cu-custom>
+
+<view class="cu-bar bg-white">
+<view class="margin">已连接到{{name}}</view>
+</view>
