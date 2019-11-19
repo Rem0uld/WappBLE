@@ -36,7 +36,15 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "ctrl",
+					"pathName": "pages/ctrl/ctrl",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

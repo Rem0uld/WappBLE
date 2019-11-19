@@ -3,5 +3,10 @@
 </cu-custom>
 
 <view class="cu-bar bg-white">
-<view class="margin">当前设备{{name}}</view>
+<view class="margin">当前设备:{{name}}</view>
+</view>
+
+<view class="cf padding-sm">
+<button class="fl mybtn">打开窗帘</button>
+<button class="fr ">关闭窗帘</button>
 </view>

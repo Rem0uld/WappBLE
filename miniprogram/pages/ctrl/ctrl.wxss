@@ -1,1 +1,5 @@
 /* pages/ctrl/ctrl.wxss */
+.mybtn{
+  height: 300rpx;
+  width: 200rpx;
+}
