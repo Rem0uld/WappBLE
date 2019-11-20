@@ -3,27 +3,30 @@
 </cu-custom>
 
 <view class="cu-bar bg-white solid-bottom">
-   <view class="action">
-  <text class="cuIcon-title text-blue"> 
+  <view class="action">
+    <text class="cuIcon-title text-blue"> 
   </text>当前设备:{{name}}</view>
 </view>
 
 <view class="cu-bar bg-white solid-bottom">
-   <view class="action">
-  <text class="cuIcon-title text-blue"> 
+  <view class="action">
+    <text class="cuIcon-title text-blue"> 
   </text>窗帘状态：{{curtainState}}
   </view>
 </view>
 
 <view class="cu-bar bg-white solid-bottom">
   <view class="action">
-  <text class="cuIcon-title text-blue"> 
+    <text class="cuIcon-title text-blue"> 
   </text> 电机状态：{{motorState}}
   </view>
 </view>
 
+<view>
+  <text class="margin text-black text-xl">{{text}}</text>
+</view>
 
 <view class="cf padding-sm">
-  <button class="fl cu-btn bg-green">打开窗帘</button>
-  <button class="fr cu-btn bg-blue">关闭窗帘</button>
+  <button class="fl cu-btn bg-green" bindtap="openCurtain">打开窗帘</button>
+  <button class="fr cu-btn bg-blue" bindtap="closeCurtain">关闭窗帘</button>
 </view>
