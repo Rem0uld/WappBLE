@@ -6,6 +6,8 @@ Page({
    */
   data: {
     name:"",
+    motorState:"",
+    curtainState:"",
   },
 
   /**
